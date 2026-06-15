@@ -32,6 +32,14 @@ The solution is made up of three BPMN processes and three forms:
 | `User to be signed up.form` | Used only internally by the subprocess (not a public entry point) |
 | `Confirm that your Key has been updated.form` | Shown during token recovery to display the new access token |
 
+### Process Diagrams
+
+**Invite Users Process** (main entry point)
+![Invite Users Process](img/Invite%20Users%20Process.png)
+
+**Invite Single User Process** (called subprocess)
+![Invite Single User Process](img/Invite%20Single%20User%20Process.png)
+
 ---
 
 ## How the Process Works
