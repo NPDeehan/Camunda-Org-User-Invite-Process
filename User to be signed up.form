@@ -1,0 +1,63 @@
+{
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.5.0",
+  "exporter": {
+    "name": "Camunda Web Modeler",
+    "version": "c78213e"
+  },
+  "schemaVersion": 16,
+  "id": "user-to-be-signed-up-19sae1s",
+  "components": [
+    {
+      "text": "# Join My Camunda Organization",
+      "label": "Text view",
+      "type": "text",
+      "layout": {
+        "row": "Row_1bjkxz6",
+        "columns": null
+      },
+      "id": "Field_1kt8kb1"
+    },
+    {
+      "label": "First Name",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_19fwzor",
+        "columns": null
+      },
+      "id": "Field_15qwpi9",
+      "key": "firstName",
+      "validate": {
+        "required": true
+      }
+    },
+    {
+      "label": "Last Name",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_19fwzor",
+        "columns": null
+      },
+      "id": "Field_14igj5i",
+      "key": "lastName",
+      "validate": {
+        "required": true
+      }
+    },
+    {
+      "label": "Email",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_0kg55uc",
+        "columns": null
+      },
+      "id": "Field_100iv8o",
+      "key": "userEmail",
+      "validate": {
+        "required": true,
+        "validationType": "email"
+      }
+    }
+  ],
+  "type": "default"
+}

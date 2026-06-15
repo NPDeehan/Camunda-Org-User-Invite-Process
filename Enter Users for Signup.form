@@ -1,0 +1,99 @@
+{
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.5.0",
+  "exporter": {
+    "name": "Camunda Web Modeler",
+    "version": "43201f7"
+  },
+  "schemaVersion": 16,
+  "id": "enter-users-for-signup",
+  "components": [
+    {
+      "text": "# Add Users to you Camunda Org",
+      "label": "Text view",
+      "type": "text",
+      "layout": {
+        "row": "Row_0j3r2l1",
+        "columns": null
+      },
+      "id": "Field_0n02gth"
+    },
+    {
+      "values": [
+        {
+          "label": "Comma Seperated List",
+          "value": "csv"
+        },
+        {
+          "label": "Enter Each Email",
+          "value": "list"
+        }
+      ],
+      "label": "How would you like to enter users",
+      "type": "select",
+      "layout": {
+        "row": "Row_026f8ka",
+        "columns": null
+      },
+      "id": "Field_093soo3",
+      "key": "inputMethod",
+      "defaultValue": "list",
+      "validate": {
+        "required": true
+      },
+      "disabled": false,
+      "readonly": false
+    },
+    {
+      "components": [
+        {
+          "label": "User's Email",
+          "type": "textfield",
+          "layout": {
+            "row": "Row_1tlt3lt",
+            "columns": null
+          },
+          "id": "Field_00exe12",
+          "key": "userEmail",
+          "validate": {
+            "required": true,
+            "validationType": "email"
+          }
+        }
+      ],
+      "showOutline": true,
+      "isRepeating": true,
+      "allowAddRemove": true,
+      "defaultRepetitions": 1,
+      "label": "User List",
+      "type": "dynamiclist",
+      "layout": {
+        "row": "Row_0k5rn8u",
+        "columns": null
+      },
+      "id": "Field_1wagsux",
+      "path": "users",
+      "conditional": {
+        "hide": "=inputMethod = \"csv\""
+      }
+    },
+    {
+      "label": "Paste User Emails here",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_1bb41k7",
+        "columns": 16
+      },
+      "id": "Field_14g3v87",
+      "key": "userEmailsCsv",
+      "validate": {
+        "required": true
+      },
+      "conditional": {
+        "hide": "=inputMethod = \"list\""
+      },
+      "description": "email@email.com,otheremail@other.com"
+    }
+  ],
+  "type": "default"
+}

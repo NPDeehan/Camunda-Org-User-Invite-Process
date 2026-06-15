@@ -1,0 +1,56 @@
+{
+  "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
+  "name": "Invite Users Template",
+  "id": "Template_1j65vd1",
+  "appliesTo": [
+    "bpmn:Activity"
+  ],
+  "elementType": {
+    "value": "bpmn:CallActivity"
+  },
+  "groups": [
+    {
+      "id": "templated-properties",
+      "label": "Templated properties",
+      "openByDefault": true
+    }
+  ],
+  "category": {
+    "id": "templates",
+    "name": "Templates"
+  },
+  "properties": [
+    {
+      "type": "String",
+      "value": "CreateUserProcess",
+      "binding": {
+        "type": "zeebe:calledElement",
+        "property": "processId"
+      },
+      "label": "Called Process ID",
+      "description": "ID of the process to be called by this call activity",
+      "group": "templated-properties"
+    },
+    {
+      "label": "Source variable for userEmail",
+      "type": "String",
+      "value": "=userEmail",
+      "feel": "required",
+      "binding": {
+        "type": "zeebe:input",
+        "name": "userEmail"
+      },
+      "group": "templated-properties"
+    },
+    {
+      "label": "Binding",
+      "description": "Binding type for the external resource",
+      "type": "Hidden",
+      "value": "latest",
+      "binding": {
+        "type": "zeebe:calledElement",
+        "property": "bindingType"
+      }
+    }
+  ]
+}

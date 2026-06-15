@@ -1,0 +1,46 @@
+{
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.5.0",
+  "exporter": {
+    "name": "Camunda Web Modeler",
+    "version": "43201f7"
+  },
+  "schemaVersion": 16,
+  "id": "confirm-that-your-key-has-been-updated-1wdn1ye",
+  "components": [
+    {
+      "text": "### Update the CamundaAPIToken secret with the following:\n``\n{{access_token}}\n``",
+      "label": "Text view",
+      "type": "text",
+      "layout": {
+        "row": "Row_0yq1z46",
+        "columns": null
+      },
+      "id": "Field_1176bif"
+    },
+    {
+      "label": "See Full Response",
+      "type": "checkbox",
+      "layout": {
+        "row": "Row_0m7rle9",
+        "columns": null
+      },
+      "id": "Field_0oho9p6",
+      "key": "showFullResponse"
+    },
+    {
+      "text": "```\n{{fullResponse}}\n```",
+      "label": "Text view",
+      "type": "text",
+      "layout": {
+        "row": "Row_0wpsmwv",
+        "columns": null
+      },
+      "id": "Field_1o3phhz",
+      "conditional": {
+        "hide": "=not(showFullResponse)"
+      }
+    }
+  ],
+  "type": "default"
+}

@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Web Modeler" exporterVersion="72f97ba" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.7.0" camunda:diagramRelationId="2a92b6fa-ad8c-4327-bd93-80fb3ef89a12">
+  <bpmn:process id="CreateUserProcess" name="Invite Single Use Process" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1" name="User to be signed up">
+      <bpmn:extensionElements>
+        <zeebe:formDefinition formId="user-to-be-signed-up-19sae1s" />
+        <zeebe:properties>
+          <zeebe:property name="publicAccess" value="true" />
+        </zeebe:properties>
+      </bpmn:extensionElements>
+      <bpmn:outgoing>Flow_1b1kz0v</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_1b1kz0v" sourceRef="StartEvent_1" targetRef="Activity_0yaq2da" />
+    <bpmn:serviceTask id="Activity_01vbxv2" name="Create User" zeebe:modelerTemplate="io.camunda.connectors.HttpJson.v2" zeebe:modelerTemplateVersion="8" zeebe:modelerTemplateIcon="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0iMTgiIHZpZXdCb3g9IjAgMCAxOCAxOCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTE3LjAzMzUgOC45OTk5N0MxNy4wMzM1IDEzLjQ0NzUgMTMuNDI4MSAxNy4wNTI5IDguOTgwNjUgMTcuMDUyOUM0LjUzMzE2IDE3LjA1MjkgMC45Mjc3NjUgMTMuNDQ3NSAwLjkyNzc2NSA4Ljk5OTk3QzAuOTI3NzY1IDQuNTUyNDggNC41MzMxNiAwLjk0NzA4MyA4Ljk4MDY1IDAuOTQ3MDgzQzEzLjQyODEgMC45NDcwODMgMTcuMDMzNSA0LjU1MjQ4IDE3LjAzMzUgOC45OTk5N1oiIGZpbGw9IiM1MDU1NjIiLz4KPHBhdGggZD0iTTQuOTMxMjYgMTQuMTU3MUw2Ljc4MTA2IDMuNzE0NzFIMTAuMTM3NUMxMS4xOTE3IDMuNzE0NzEgMTEuOTgyNCAzLjk4MzIzIDEyLjUwOTUgNC41MjAyN0MxMy4wNDY1IDUuMDQ3MzYgMTMuMzE1IDUuNzMzNTggMTMuMzE1IDYuNTc4OTJDMTMuMzE1IDcuNDQ0MTQgMTMuMDcxNCA4LjE1NTIyIDEyLjU4NDEgOC43MTIxNUMxMi4xMDY3IDkuMjU5MTMgMTEuNDU1MyA5LjYzNzA1IDEwLjYyOTggOS44NDU5TDEyLjA2MTkgMTQuMTU3MUgxMC4zMzE1TDkuMDMzNjQgMTAuMDI0OUg3LjI0MzUxTDYuNTEyNTQgMTQuMTU3MUg0LjkzMTI2Wk03LjQ5NzExIDguNTkyODFIOS4yNDI0OEM5Ljk5ODMyIDguNTkyODEgMTAuNTkwMSA4LjQyMzc0IDExLjAxNzcgOC4wODU2MUMxMS40NTUzIDcuNzM3NTMgMTEuNjc0MSA3LjI2NTEzIDExLjY3NDEgNi42Njg0MkMxMS42NzQxIDYuMTkxMDYgMTEuNTI0OSA1LjgxODExIDExLjIyNjUgNS41NDk1OUMxMC45MjgyIDUuMjcxMTMgMTAuNDU1OCA1LjEzMTkgOS44MDkzNiA1LjEzMTlIOC4xMDg3NEw3LjQ5NzExIDguNTkyODFaIiBmaWxsPSJ3aGl0ZSIvPgo8L3N2Zz4K">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="io.camunda:http-json:1" retries="3" />
+        <zeebe:ioMapping>
+          <zeebe:input source="bearer" target="authentication.type" />
+          <zeebe:input source="=access_token" target="authentication.token" />
+          <zeebe:input source="POST" target="method" />
+          <zeebe:input source="=&#34;https://api.cloud.camunda.io/members/&#34;+ userEmail" target="url" />
+          <zeebe:input source="20" target="connectionTimeoutInSeconds" />
+          <zeebe:input source="20" target="readTimeoutInSeconds" />
+          <zeebe:input source="={&#10;  &#34;orgRoles&#34;: [&#10;    &#34;taskuser&#34;,&#10;    &#34;analyst&#34;,&#10;    &#34;developer&#34;,&#10;    &#34;modeler&#34;&#10;  ]&#10;}" target="body" />
+        </zeebe:ioMapping>
+        <zeebe:taskHeaders>
+          <zeebe:header key="resultVariable" value="result" />
+          <zeebe:header key="errorExpression" value="=if error.code = &#34;403&#34; then&#10;  bpmnError(&#34;403&#34;, &#34;No_Permission_Or_No_Seats&#34;)&#10;else if error.code = &#34;401&#34; then&#10;  bpmnError(&#34;401&#34;,&#34;Unauthorized&#34;)&#10;else &#10;  null" />
+          <zeebe:header key="retryBackoff" value="PT0S" />
+        </zeebe:taskHeaders>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_02w4bih</bpmn:incoming>
+      <bpmn:outgoing>Flow_0fomxy2</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:endEvent id="Event_0g6i9xs">
+      <bpmn:incoming>Flow_0fomxy2</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_0fomxy2" sourceRef="Activity_01vbxv2" targetRef="Event_0g6i9xs" />
+    <bpmn:boundaryEvent id="Event_1edfu3m" name="No Seats or No Permission" attachedToRef="Activity_01vbxv2">
+      <bpmn:outgoing>Flow_0qa7fg3</bpmn:outgoing>
+      <bpmn:errorEventDefinition id="ErrorEventDefinition_1x4mnce" errorRef="Error_0v3amb1" />
+    </bpmn:boundaryEvent>
+    <bpmn:sequenceFlow id="Flow_0qa7fg3" sourceRef="Event_1edfu3m" targetRef="Event_1otcdm6" />
+    <bpmn:endEvent id="Event_1otcdm6" name="No Seats or No Permission">
+      <bpmn:incoming>Flow_0qa7fg3</bpmn:incoming>
+      <bpmn:errorEventDefinition id="ErrorEventDefinition_141lu2i" errorRef="Error_0v3amb1" />
+    </bpmn:endEvent>
+    <bpmn:boundaryEvent id="Event_04fyh90" name="Unauthorized" attachedToRef="Activity_01vbxv2">
+      <bpmn:outgoing>Flow_0tdy26m</bpmn:outgoing>
+      <bpmn:errorEventDefinition id="ErrorEventDefinition_1ncum5n" errorRef="Error_15pgiz1" />
+    </bpmn:boundaryEvent>
+    <bpmn:sequenceFlow id="Flow_0tdy26m" sourceRef="Event_04fyh90" targetRef="Event_1fy95d5" />
+    <bpmn:endEvent id="Event_1fy95d5" name="Unauthorized">
+      <bpmn:incoming>Flow_0tdy26m</bpmn:incoming>
+      <bpmn:errorEventDefinition id="ErrorEventDefinition_134icvc" errorRef="Error_15pgiz1" />
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_02w4bih" sourceRef="Activity_0yaq2da" targetRef="Activity_01vbxv2" />
+    <bpmn:serviceTask id="Activity_0yaq2da" name="Authorization" zeebe:modelerTemplate="io.camunda.connectors.HttpJson.v2" zeebe:modelerTemplateVersion="11" zeebe:modelerTemplateIcon="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0iMTgiIHZpZXdCb3g9IjAgMCAxOCAxOCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTE3LjAzMzUgOC45OTk5N0MxNy4wMzM1IDEzLjQ0NzUgMTMuNDI4MSAxNy4wNTI5IDguOTgwNjUgMTcuMDUyOUM0LjUzMzE2IDE3LjA1MjkgMC45Mjc3NjUgMTMuNDQ3NSAwLjkyNzc2NSA4Ljk5OTk3QzAuOTI3NzY1IDQuNTUyNDggNC41MzMxNiAwLjk0NzA4MyA4Ljk4MDY1IDAuOTQ3MDgzQzEzLjQyODEgMC45NDcwODMgMTcuMDMzNSA0LjU1MjQ4IDE3LjAzMzUgOC45OTk5N1oiIGZpbGw9IiM1MDU1NjIiLz4KPHBhdGggZD0iTTQuOTMxMjYgMTQuMTU3MUw2Ljc4MTA2IDMuNzE0NzFIMTAuMTM3NUMxMS4xOTE3IDMuNzE0NzEgMTEuOTgyNCAzLjk4MzIzIDEyLjUwOTUgNC41MjAyN0MxMy4wNDY1IDUuMDQ3MzYgMTMuMzE1IDUuNzMzNTggMTMuMzE1IDYuNTc4OTJDMTMuMzE1IDcuNDQ0MTQgMTMuMDcxNCA4LjE1NTIyIDEyLjU4NDEgOC43MTIxNUMxMi4xMDY3IDkuMjU5MTMgMTEuNDU1MyA5LjYzNzA1IDEwLjYyOTggOS44NDU5TDEyLjA2MTkgMTQuMTU3MUgxMC4zMzE1TDkuMDMzNjQgMTAuMDI0OUg3LjI0MzUxTDYuNTEyNTQgMTQuMTU3MUg0LjkzMTI2Wk03LjQ5NzExIDguNTkyODFIOS4yNDI0OEM5Ljk5ODMyIDguNTkyODEgMTAuNTkwMSA4LjQyMzc0IDExLjAxNzcgOC4wODU2MUMxMS40NTUzIDcuNzM3NTMgMTEuNjc0MSA3LjI2NTEzIDExLjY3NDEgNi42Njg0MkMxMS42NzQxIDYuMTkxMDYgMTEuNTI0OSA1LjgxODExIDExLjIyNjUgNS41NDk1OUMxMC45MjgyIDUuMjcxMTMgMTAuNDU1OCA1LjEzMTkgOS44MDkzNiA1LjEzMTlIOC4xMDg3NEw3LjQ5NzExIDguNTkyODFaIiBmaWxsPSJ3aGl0ZSIvPgo8L3N2Zz4K">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="io.camunda:http-json:1" retries="3" />
+        <zeebe:ioMapping>
+          <zeebe:input source="noAuth" target="authentication.type" />
+          <zeebe:input source="POST" target="method" />
+          <zeebe:input source="https://login.cloud.camunda.io/oauth/token" target="url" />
+          <zeebe:input source="=false" target="storeResponse" />
+          <zeebe:input source="=20" target="connectionTimeoutInSeconds" />
+          <zeebe:input source="=20" target="readTimeoutInSeconds" />
+          <zeebe:input source="={&#10;    &#34;grant_type&#34; : &#34;client_credentials&#34;,&#10;    &#34;audience&#34; : &#34;api.cloud.camunda.io&#34;,&#10;    &#34;client_id&#34; : &#34;{{secrets.creat_user_client_id}}&#34;,&#10;    &#34;client_secret&#34; :&#34;{{secrets.create_user_secret}}&#34;&#10;&#10;}" target="body" />
+          <zeebe:input source="=false" target="ignoreNullValues" />
+        </zeebe:ioMapping>
+        <zeebe:taskHeaders>
+          <zeebe:header key="elementTemplateVersion" value="11" />
+          <zeebe:header key="elementTemplateId" value="io.camunda.connectors.HttpJson.v2" />
+          <zeebe:header key="resultVariable" value="fullAuthReponse" />
+          <zeebe:header key="resultExpression" value="={&#10;  &#34;access_token&#34; : response.body.access_token&#10;}" />
+          <zeebe:header key="retryBackoff" value="PT0S" />
+        </zeebe:taskHeaders>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1b1kz0v</bpmn:incoming>
+      <bpmn:outgoing>Flow_02w4bih</bpmn:outgoing>
+    </bpmn:serviceTask>
+  </bpmn:process>
+  <bpmn:error id="Error_0v3amb1" name="No_Permission_Or_No_Seats" errorCode="403" />
+  <bpmn:error id="Error_15pgiz1" name="Unauthorized" errorCode="401" />
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="CreateUserProcess">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="-48" y="100" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="-73" y="143" width="87" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0s59gnm_di" bpmnElement="Activity_01vbxv2">
+        <dc:Bounds x="240" y="78" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0g6i9xs_di" bpmnElement="Event_0g6i9xs">
+        <dc:Bounds x="402" y="100" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0eg2j8n_di" bpmnElement="Event_1otcdm6">
+        <dc:Bounds x="432" y="222" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="409" y="265" width="82" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_00pjvym_di" bpmnElement="Event_1fy95d5">
+        <dc:Bounds x="432" y="312" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="416" y="355" width="69" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1llkra3_di" bpmnElement="Activity_0yaq2da">
+        <dc:Bounds x="60" y="78" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0dxnjkc_di" bpmnElement="Event_04fyh90">
+        <dc:Bounds x="242" y="140" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="187" y="183" width="66" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1edfu3m_di" bpmnElement="Event_1edfu3m">
+        <dc:Bounds x="302" y="140" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="339" y="176" width="82" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1b1kz0v_di" bpmnElement="Flow_1b1kz0v">
+        <di:waypoint x="-12" y="118" />
+        <di:waypoint x="60" y="118" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0fomxy2_di" bpmnElement="Flow_0fomxy2">
+        <di:waypoint x="340" y="118" />
+        <di:waypoint x="402" y="118" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0qa7fg3_di" bpmnElement="Flow_0qa7fg3">
+        <di:waypoint x="320" y="176" />
+        <di:waypoint x="320" y="240" />
+        <di:waypoint x="432" y="240" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0tdy26m_di" bpmnElement="Flow_0tdy26m">
+        <di:waypoint x="260" y="176" />
+        <di:waypoint x="260" y="330" />
+        <di:waypoint x="432" y="330" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_02w4bih_di" bpmnElement="Flow_02w4bih">
+        <di:waypoint x="160" y="118" />
+        <di:waypoint x="240" y="118" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
